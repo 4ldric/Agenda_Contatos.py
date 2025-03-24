@@ -23,15 +23,33 @@ def detalhes_contato(indice_contato):
         nome_contato = contatos[indice_revisado]["nome"]
         telefone_contato = contatos[indice_revisado]["telefone"]
         email_contato = contatos[indice_revisado]["email"]
-        print(f' Nome: {nome_contato}\n Telefone: {telefone_contato}\n Email: {email_contato}')
+        print(f' [1] Nome: {nome_contato}\n [2] Telefone: {telefone_contato}\n [3] Email: {email_contato}')
+    elif indice_contato == 0:
+        print("Retornando ao menu...")
     else:
         print("informe digito correto!!")
 
 
-def editar_contato(contatos,indice_contato, novo_nome,novo_numero, novo_email):
+def editar_contato(indice_contato):
     indice_revisado = indice_contato - 1
-
-    print("Contato Atualizado")
+    editor = 1
+    detalhes_contato(indice_contato)
+    while editor > 0:
+        editar = int(input("Digite o que deseja atualizar ou digite 0 para retornar ao menu: "))
+        if editar == 1:
+            novo_nome = input("Digite o nome atualizado: ")
+            contatos[indice_revisado]["nome"] = novo_nome
+            print("Nome Atualizado!!")
+        elif editar == 2:
+            novo_telefone = int(input("Digite o telefone atualizado: "))
+            contatos[indice_revisado]["telefone"] = novo_telefone
+            print("Telefone Atualizado!!")
+        elif editar == 3:
+            novo_email = input("Digite o email atualizado: ")
+            contatos[indice_revisado]["email"] = novo_email
+        elif editar == 0:
+            editor -= 1
+            print("Retornando ao menu...")
 
 contatos = []
 
@@ -62,6 +80,7 @@ while True:
     elif comando == 3:
         ver_contatos()
         indice_contato = int(input("Informe o contato a ser editado: "))
+        editar_contato(indice_contato)
         
     elif comando == 7:
         break
