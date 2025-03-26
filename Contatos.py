@@ -12,7 +12,7 @@ def adicionar_contato(nome, telefone, email):
 def ver_contatos():
     print("Lista de contatos")
     for indice,contato in enumerate(contatos, start=1):
-        favorito = "★" if contato["favoritos"] else " "
+        favorito = "☆" if contato["favoritos"] else " "
         nome_contato = contato["nome"]
         print(f'{indice}. [{favorito}] {nome_contato}')
 
@@ -39,17 +39,30 @@ def editar_contato(indice_contato):
         if editar == 1:
             novo_nome = input("Digite o nome atualizado: ")
             contatos[indice_revisado]["nome"] = novo_nome
-            print("Nome Atualizado!!")
+            print("Nome Atualizado!!\n")
         elif editar == 2:
             novo_telefone = int(input("Digite o telefone atualizado: "))
             contatos[indice_revisado]["telefone"] = novo_telefone
-            print("Telefone Atualizado!!")
+            print("Telefone Atualizado!!\n")
         elif editar == 3:
             novo_email = input("Digite o email atualizado: ")
             contatos[indice_revisado]["email"] = novo_email
+            print("Email Atualizado!!\n")
         elif editar == 0:
             editor -= 1
             print("Retornando ao menu...")
+
+def favoritar_contato(contatos, indice_contato):
+    indice_revisado = indice_contato - 1
+    opcao = contatos[indice_revisado]["favoritos"]
+    if indice_revisado >= 0 and indice_revisado < len(contatos):
+        if opcao is False:
+            contatos[indice_revisado]["favoritos"] = True
+            print("Contato Favoritado!!\n")
+        else:
+            contatos[indice_revisado]["favoritos"] = False
+            print("Contato Removido dos favoritos!!\n")
+    print("Retornando ao menu!!\n")
 
 contatos = []
 
@@ -60,7 +73,7 @@ while True:
     [1] Adicionar Contato
     [2] Ver contatos
     [3] Editar contato
-    [4] Favoritar contato
+    [4] Adicionar ou remover contato dos favoritos
     [5] Ver favoritos
     [6] Remover contato
     [7] Sair
@@ -81,6 +94,11 @@ while True:
         ver_contatos()
         indice_contato = int(input("Informe o contato a ser editado: "))
         editar_contato(indice_contato)
-        
+    elif comando == 4:
+        ver_contatos()
+        indice_contato = int(input("digite Qual contato deseja favoritar/remover favorito: "))
+        favoritar_contato(contatos, indice_contato)
     elif comando == 7:
         break
+    else:
+        print("informe apenas digitos disponiveis..")
