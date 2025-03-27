@@ -10,11 +10,11 @@ def adicionar_contato(nome, telefone, email):
     print("Contato adicionado!!")
 
 def ver_contatos():
-    print("Lista de contatos")
+    print("=+=+=+= Lista de contatos ")
     for indice,contato in enumerate(contatos, start=1):
         favorito = "☆" if contato["favoritos"] else " "
         nome_contato = contato["nome"]
-        print(f'{indice}. [{favorito}] {nome_contato}')
+        print(f'{indice}. [{favorito} ] {nome_contato}')
 
 def detalhes_contato(indice_contato):
     indice_revisado = indice_contato - 1
@@ -64,6 +64,20 @@ def favoritar_contato(contatos, indice_contato):
             print("Contato Removido dos favoritos!!\n")
     print("Retornando ao menu!!\n")
 
+def ver_favoritos():
+    print("=+=+=+= Contatos favoritos =+=+=+=")
+    if contatos == []:
+        print("Nenhum contato favoritado, retornando ao menu..")
+    else:
+        for indice, contato in enumerate(contatos, start=1):
+            if contato["favoritos"] is True:
+                nome_contato = contato["nome"]
+                favorito = "☆" 
+                print(f' {indice}. [{favorito} ] {nome_contato}')
+            elif contato["favoritos"] is False:
+                continue
+
+
 contatos = []
 
 while True:
@@ -98,6 +112,8 @@ while True:
         ver_contatos()
         indice_contato = int(input("digite Qual contato deseja favoritar/remover favorito: "))
         favoritar_contato(contatos, indice_contato)
+    elif comando == 5:
+        ver_favoritos()
     elif comando == 7:
         break
     else:
