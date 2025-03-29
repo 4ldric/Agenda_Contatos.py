@@ -1,4 +1,3 @@
-
 def adicionar_contato(nome, telefone, email):
     contato = {
         "nome": nome,
@@ -10,7 +9,7 @@ def adicionar_contato(nome, telefone, email):
     print("Contato adicionado!!")
 
 def ver_contatos():
-    print("=+=+=+= Lista de contatos ")
+    print("=+=+=+= Lista de contatos =+=+=+=")
     for indice,contato in enumerate(contatos, start=1):
         favorito = "☆" if contato["favoritos"] else " "
         nome_contato = contato["nome"]
@@ -29,25 +28,27 @@ def detalhes_contato(indice_contato):
     else:
         print("informe digito correto!!")
 
-
 def editar_contato(indice_contato):
     indice_revisado = indice_contato - 1
     editor = 1
     detalhes_contato(indice_contato)
     while editor > 0:
-        editar = int(input("Digite o que deseja atualizar ou digite 0 para retornar ao menu: "))
+        editar = int(input("\nDigite o que deseja atualizar ou digite 0 para retornar ao menu: "))
         if editar == 1:
             novo_nome = input("Digite o nome atualizado: ")
             contatos[indice_revisado]["nome"] = novo_nome
             print("Nome Atualizado!!\n")
+            detalhes_contato(indice_contato)
         elif editar == 2:
             novo_telefone = int(input("Digite o telefone atualizado: "))
             contatos[indice_revisado]["telefone"] = novo_telefone
             print("Telefone Atualizado!!\n")
+            detalhes_contato(indice_contato)
         elif editar == 3:
             novo_email = input("Digite o email atualizado: ")
             contatos[indice_revisado]["email"] = novo_email
             print("Email Atualizado!!\n")
+            detalhes_contato(indice_contato)
         elif editar == 0:
             editor -= 1
             print("Retornando ao menu...")
@@ -77,6 +78,14 @@ def ver_favoritos():
             elif contato["favoritos"] is False:
                 continue
 
+def remover_contato(indice_contato):
+    indice_revisado = indice_contato - 1
+    if indice_revisado >= 0 and indice_revisado < len(contatos):
+        del contatos[indice_revisado]
+        print("Contato removido com sucesso!!")
+    else:
+        print("Contato Não existe!!")
+    print("\nRetornando ao menu...")
 
 contatos = []
 
@@ -114,6 +123,10 @@ while True:
         favoritar_contato(contatos, indice_contato)
     elif comando == 5:
         ver_favoritos()
+    elif comando == 6:
+        ver_contatos()
+        indice_contato = int(input("Digite qual contato ira remover: "))
+        remover_contato(indice_contato)
     elif comando == 7:
         break
     else:
